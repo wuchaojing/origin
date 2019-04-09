@@ -21,9 +21,6 @@ public class Manager {
         Thread thread = new Thread(new Sender());
         thread.setDaemon(true);
         executorService.execute(thread);
-
-//        heartBeatManager.startHeartBeat();
-
     }
 
     class Sender implements Runnable {
@@ -42,9 +39,8 @@ public class Manager {
             while (true) {
                 Message message = null;
                 try {
-//                    message = heartBeatQueue.take();
-//                    sender.send(message);
-                    System.out.println("=====");
+                    message = heartBeatQueue.take();
+                    sender.send(message);
                     waitMinute();
                 } catch (Exception e) {
                     e.printStackTrace();

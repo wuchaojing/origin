@@ -6,12 +6,12 @@ import lombok.Data;
 
 @Data
 public class Message {
-    private String type;
+    private String messageType;
     private HeartBeat heartBeat;
     private Transaction transaction;
 
-    public Message(String type) {
-        this.type = type;
+    public Message(String messageType) {
+        this.messageType = messageType;
     }
 
     public Message() {

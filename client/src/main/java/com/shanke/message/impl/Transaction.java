@@ -18,8 +18,10 @@ public class Transaction extends Message {
     private String threadId;
     private String threadName;
     private String threadGroupName;
+    private Long startTime;
+    private Long endTime;
 
-    private String durationTime;
+    private Long durationTime;
 
     public Transaction(String type, String name) {
         this.type = type;

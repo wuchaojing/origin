@@ -17,6 +17,10 @@ public class App {
         transactionManager.addTransaction(transaction);
     }
 
+    public static void endTransaction() {
+        transactionManager.endTransaction();
+    }
+
     private static void checkAndInitialize() {
         if (!init) {
             synchronized (app) {
