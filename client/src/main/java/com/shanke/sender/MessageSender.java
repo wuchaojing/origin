@@ -13,11 +13,11 @@ public class MessageSender {
 
     public void send(Message message) {
         Client client = new Client();
-        try {
-            client.start(message);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+////            client.start(message);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
     }
 }

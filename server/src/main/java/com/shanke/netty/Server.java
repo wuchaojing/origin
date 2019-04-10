@@ -1,6 +1,5 @@
 package com.shanke.netty;
 
-import com.shanke.handle.EchoServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;

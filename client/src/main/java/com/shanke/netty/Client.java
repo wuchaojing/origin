@@ -1,6 +1,5 @@
 package com.shanke.netty;
 
-import com.shanke.message.Message;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -11,7 +10,7 @@ import io.netty.handler.codec.string.StringEncoder;
 
 public class Client {
 
-    public void start(Message message) throws InterruptedException {
+    public void start(String jsonMessage) throws InterruptedException {
         EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
@@ -29,7 +28,7 @@ public class Client {
                     });
 
             ChannelFuture future = b.connect("127.0.0.1", 8888).sync();
-            future.channel().writeAndFlush(message.toString());
+            future.channel().writeAndFlush(jsonMessage);
             future.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully().sync();
