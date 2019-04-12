@@ -1,8 +1,8 @@
 package com.shanke;
 
-import com.shanke.manager.impl.HeartBeatManager;
-import com.shanke.manager.impl.TransactionManager;
-import com.shanke.message.impl.Transaction;
+import com.shanke.manager.HeartBeatManager;
+import com.shanke.manager.TransactionManager;
+import com.shanke.message.Transaction;
 
 public class App {
 
@@ -28,7 +28,6 @@ public class App {
                     transactionManager = TransactionManager.getInstance();
 
                     new HeartBeatManager();
-                    //初始化jvm相关信息
 
                     init = true;
                 }

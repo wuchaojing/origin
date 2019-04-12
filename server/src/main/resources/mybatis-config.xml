@@ -3,8 +3,8 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="Transaction" type="com.shanke.message.impl.Transaction"/>
-        <typeAlias alias="HeartBeat" type="com.shanke.message.impl.HeartBeat"/>
+        <typeAlias alias="Transaction" type="com.shanke.message.Transaction"/>
+        <typeAlias alias="HeartBeat" type="com.shanke.message.HeartBeat"/>
     </typeAliases>
 
     <environments default="development">
@@ -21,7 +21,10 @@
     </environments>
 
     <mappers>
-        <mapper class="com.shanke.mapper.TransactionMapper"/>
+        <mapper class="com.shanke.db.mapper.TransactionMapper"/>
+        <mapper class="com.shanke.db.mapper.JvmMapper"/>
+        <mapper class="com.shanke.db.mapper.MemoryMapper"/>
+        <mapper class="com.shanke.db.mapper.SystemMapper"/>
     </mappers>
 
 </configuration>

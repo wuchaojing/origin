@@ -23,7 +23,7 @@ public class Client {
                             ChannelPipeline p = ch.pipeline();
                             p.addLast("decoder", new StringDecoder());
                             p.addLast("encoder", new StringEncoder());
-                            p.addLast(new EchoClientHandler());
+                            p.addLast(new SendHandler());
                         }
                     });
 

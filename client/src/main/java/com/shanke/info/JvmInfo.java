@@ -1,5 +1,6 @@
 package com.shanke.info;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import java.lang.management.GarbageCollectorMXBean;
@@ -10,20 +11,27 @@ import java.util.Set;
 @Data
 public class JvmInfo {
 
+    @JsonIgnore
     private long lastGcCount;
+    @JsonIgnore
     private long lastGcTime;
+    @JsonIgnore
     private long lastFullGcTime;
+    @JsonIgnore
     private long lastFullGcCount;
+    @JsonIgnore
     private long lastYoungGcTime;
+    @JsonIgnore
     private long lastYoungGcCount;
 
     private long gcCount;
     private long gcTime;
-    private long oldGCount;
+    private long oldGcCount;
     private long oldGcTime;
     private long youngGcCount;
     private long youngGcTime;
 
+    @JsonIgnore
     private Set<String> youngGcAlgorithm = new LinkedHashSet<String>() {
         private static final long serialVersionUID = -2953196532584721351L;
 
@@ -35,6 +43,7 @@ public class JvmInfo {
         }
     };
 
+    @JsonIgnore
     private Set<String> oldGcAlgorithm = new LinkedHashSet<String>() {
         private static final long serialVersionUID = -8267829533109860610L;
 
@@ -58,13 +67,13 @@ public class JvmInfo {
                 youngGcCount += garbageCollector.getCollectionCount();
             } else if (oldGcAlgorithm.contains(gcAlgorithm)) {
                 oldGcTime += garbageCollector.getCollectionTime();
-                oldGCount += garbageCollector.getCollectionCount();
+                oldGcCount += garbageCollector.getCollectionCount();
             }
         }
 
         gcCount = gcCount - lastGcCount;
         gcTime = gcTime - lastGcTime;
-        oldGCount = oldGCount - lastFullGcCount;
+        oldGcCount = oldGcCount - lastFullGcCount;
 
         oldGcTime = oldGcTime - lastFullGcTime;
         youngGcCount = youngGcCount - lastYoungGcCount;
@@ -74,7 +83,7 @@ public class JvmInfo {
         lastGcTime = gcTime;
         lastYoungGcCount = youngGcCount;
         lastYoungGcTime = youngGcTime;
-        lastFullGcCount = oldGCount;
+        lastFullGcCount = oldGcCount;
         lastFullGcTime = oldGcTime;
     }
 

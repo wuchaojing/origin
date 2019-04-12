@@ -1,7 +1,7 @@
 package com.shanke.handle;
 
 import com.shanke.db.Memory2DB;
-import com.shanke.message.impl.Transaction;
+import com.shanke.message.Transaction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,11 +10,18 @@ import java.util.Map;
 
 public class TransactionHandle {
 
-    private Memory2DB memory2DB = Memory2DB.getMemory2DB();
+    private static TransactionHandle transactionHandle = new TransactionHandle();
+
+    private Memory2DB memory2DB = Memory2DB.getInstance();
 
     private Map<Long, List<Transaction>> map = new HashMap<>();
 
+    public static TransactionHandle getInstance() {
+        return transactionHandle;
+    }
+
     public void handle(Transaction transaction) {
+        System.out.println("transaction = " + transaction);
         Long currentHour = System.currentTimeMillis() - System.currentTimeMillis() % 3600000;
 
         // todo thread
@@ -33,8 +40,13 @@ public class TransactionHandle {
             transactions.add(transaction);
 
             map.put(currentHour, transactions);
+            return;
         }
+
         List<Transaction> transactions = map.get(currentHour);
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
         transactions.add(transaction);
         map.put(currentHour, transactions);
     }

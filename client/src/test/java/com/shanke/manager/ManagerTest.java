@@ -1,6 +1,5 @@
 package com.shanke.manager;
 
-import com.shanke.manager.impl.HeartBeatManager;
 import org.junit.Test;
 
 public class ManagerTest {
