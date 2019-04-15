@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="fengsigaoju-springMvc-book:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>fengsigaoju-springMvc-book</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="fengsigaoju-springMvc-book.war">
+      <element id="artifact" artifact-name="fengsigaoju-springMvc-book:war exploded" />
+    </root>
+  </artifact>
+</component>
