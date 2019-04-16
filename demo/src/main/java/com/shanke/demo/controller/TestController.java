@@ -12,9 +12,20 @@ public class TestController {
     @ResponseBody
     public String hello() throws InterruptedException {
 
-        App.newTransaction("a", "b");
-        Thread.sleep(2000);
-//        App.endTransaction();
+        App.newTransaction("hello", "world");
+        Thread.sleep(1000);
+        App.endTransaction();
+
+        return "hello";
+    }
+
+    @RequestMapping("/world")
+    @ResponseBody
+    public String world() throws InterruptedException {
+
+        App.newTransaction("chao", "jing");
+        Thread.sleep(1000);
+        App.endTransaction();
 
         return "hello";
     }

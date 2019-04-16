@@ -8,12 +8,6 @@ import java.util.List;
 
 public class Memory2DBTest {
 
-    @Test
-    public void testDB() {
-        Memory2DB memory2DB = Memory2DB.getInstance();
-        List<Transaction> transactions = new ArrayList<>();
-        transactions.add(new Transaction("a","b"));
-        memory2DB.storeTransaction(System.currentTimeMillis(), transactions);
-    }
+
 
 }

@@ -1,0 +1,96 @@
+.top {
+    width: 100%;
+    height: 55px;
+    background-color: #003867;
+    flex-shrink: 0;
+    flex-grow: 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top h2 {
+    float: left;
+    line-height: 56px;
+    color: #fff;
+    margin-left: 30px;
+}
+
+.qr_code {
+    position: absolute;
+    top: 55px;
+    right: 5%;
+    width: 120px;
+    height: 150px;
+}
+
+.tool {
+    display: flex;
+}
+
+.toolBox {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+i.doc {
+    background: url(../img/doc.png);
+}
+
+i.msg {
+    background-size: 100% 100%;
+    background: url(../img/info.png);
+}
+
+i.close {
+    background-size: 100% 100%;
+    background: url(../img/quit.png);
+}
+
+.tool i {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    background-size: 100% 100%;
+    margin-right: 6px;
+}
+
+.tool h3,
+.tool a {
+    font-size: 14px;
+    line-height: 55px;
+    color: #B3B2B4;
+    display: inline-block;
+}
+
+.tool a:hover {
+    font-size: 14px;
+    line-height: 55px;
+    color: #000;
+    display: inline-block;
+}
+
+
+
+.welcome h3.userName {
+    color: #B3B2B4;
+    margin-right: 20px;
+}
+
+.top img {
+    float: left;
+    width: 20px;
+    height: 20px;
+    margin-top: 18px;
+    margin-left: 24px;
+}
+
+.top p {
+    width: 80px;
+    line-height: 56px;
+    font-family: "å¾®è½¯é›…é»‘";
+    font-size: 16px;
+    color: #fff;
+    float: left;
+    margin-left: 24px;
+}

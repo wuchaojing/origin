@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<script src="../static/js/right.js"></script>
+<link rel="stylesheet" href="../static/css/right.css">
+<body>
+<div class="report">
+    <div class="cat-report-nav" id="breadcrumbs">
+        <div>
+            <div class="cat-domain">time</div>
+        </div>
+        <div class="cat-nav-time">
+            <input type="text" id="startTime" class="cat-timepicker" readonly/>
+            <div class="cat-time-sep">~</div>
+            <input type="text" id="endTime" class="cat-timepicker cat-timepicker-end" readonly/>
+        </div>
+        <div>
+            <div class="cat-domain">domain</div>
+        </div>
+        <form class="cat-search-group" id="wrap_search">
+            <input id="search" type="text" value="com.test"
+                   class="cat-search search-input"
+                   placeholder="input domain for search" autocomplete="off"/>
+            <button onclick="getType()" class="btn-go" id="search_go">Go</button>
+        </form>
+
+        <div class="cat-timespan">
+            <a class="cat-switch text-danger" href="#">切到历史</a>
+            <a class="cat-timenav" href="javascript:subtractDay()">-1d</a>
+            <a class="cat-timenav" href="javascript:subtractHour()">-1h</a>
+            <a class="cat-timenav" href="javascript:addHour()">+1h</a>
+            <a class="cat-timenav" href="javascript:addDay()">+1d</a>
+            <a class="cat-timenav" href="javascript:now()">now</a>
+        </div>
+    </div>
+
+    <div style="width:100%;display:none;font-size:small">
+    </div>
+
+    <div id="machine" class="machine">
+        <div class="machine-list">机器列表&nbsp;&nbsp;</div>
+        <a id="machine_all" class="machine-all" href="#" onclick="selectAll()">All</a>&nbsp;&nbsp;
+        <th:each th:each="machine,machineStat : ${machines}">
+            <a th:id="${'machine'+machineStat.count}" class="machine-name"
+               th:onclick="'javascript:selectMachine('+${machineStat.size}+','+${machineStat.count}+');'"
+               href="#"
+               th:text="${machine}">All</a>&nbsp;&nbsp;
+        </th:each>
+    </div>
+</div>
+</body>
+<script>
+    var myDate = new Date();
+    var startTime = window.sessionStorage.getItem("startTime");
+    var endTime = window.sessionStorage.getItem("endTime");
+    var domain = window.sessionStorage.getItem("domain");
+
+    var machineSize = window.sessionStorage.getItem("machineSize");
+    var machineId = window.sessionStorage.getItem("machineId");
+    if (startTime != null) {
+        $("#startTime").val(startTime);
+    } else {
+        $("#startTime").val(myDate.getFullYear() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate() + " " + myDate.getHours() + ":00");
+    }
+
+    if (endTime != null) {
+        $("#endTime").val(endTime);
+    } else {
+        $("#endTime").val(myDate.getFullYear() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate() + " " + (myDate.getHours() + 1) + ":00");
+    }
+
+    if (domain != null) {
+        $("#search").val(domain);
+    } else {
+        $("#search").val("com.test");
+    }
+
+    if (machineId != null) {
+        selectMachineWithColor(machineSize, machineId);
+    }
+
+</script>
+</html>

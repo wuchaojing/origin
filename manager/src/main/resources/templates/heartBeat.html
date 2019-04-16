@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>transaction</title>
+    <link rel="stylesheet" href="../static/css/transaction.css">
+    <link rel="stylesheet" href="../static/css/header.css">
+    <link rel="stylesheet" href="../static/css/left.css">
+    <script src="../static/js/jquery.min.js"></script>
+    <script src="../static/js/transaction.js"></script>
+    <script src="../static/js/common.js"></script>
+</head>
+<body>
+<div th:replace="header :: html"></div>
+<div class="bottom">
+    <div th:replace="left :: html"></div>
+    <div id="ins" class="bottom_right">
+        <div th:replace="right :: html"></div>
+    </div>
+</div>
+</body>
+</html>

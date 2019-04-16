@@ -13,8 +13,6 @@ import com.shanke.message.Transaction;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
-import java.util.List;
-
 public class Memory2DB {
 
     private static SqlSessionFactory factory = Connector.getConnector().getFactory();
@@ -24,12 +22,12 @@ public class Memory2DB {
     private Memory2DB() {
     }
 
-    public void storeTransaction(Long time, List<Transaction> transactions) {
-        for (Transaction transaction : transactions) {
-            SqlSession session = factory.openSession();
-            TransactionMapper mapper = session.getMapper(TransactionMapper.class);
-            mapper.insert(time, transaction);
-        }
+    public void storeTransaction(Long time, Transaction transaction) {
+//        for (Transaction transaction : transactions) {
+        SqlSession session = factory.openSession();
+        TransactionMapper mapper = session.getMapper(TransactionMapper.class);
+        mapper.insert(time, transaction);
+//        }
     }
 
     public static Memory2DB getInstance() {
@@ -57,7 +55,5 @@ public class Memory2DB {
         sqlSession = factory.openSession();
         SystemMapper systemMapper = sqlSession.getMapper(SystemMapper.class);
         systemMapper.insert(domain, hostname, ipAddress, time, systemInfo);
-
-
     }
 }

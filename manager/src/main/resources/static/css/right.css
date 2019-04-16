@@ -1,0 +1,29 @@
+.machine {
+    margin-left: 10px;
+    margin-top: 5px;
+    display: flex;
+}
+
+.machine-list {
+    font-size: 15px;
+}
+
+.machine-all {
+    background-color: #4876FF;
+}
+
+.machine-all:before {
+    content: ' [ ';
+}
+
+.machine-all:after {
+    content: ' ] ';
+}
+
+.machine-name:before {
+    content: ' [ ';
+}
+
+.machine-name:after {
+    content: ' ] ';
+}

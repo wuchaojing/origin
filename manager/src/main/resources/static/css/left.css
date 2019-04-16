@@ -1,0 +1,45 @@
+.bottom_left {
+    width: 150px;
+    background-color: #202020;
+    height: 100%;
+    padding-top:20px;
+}
+
+ul.siderLeft li {
+    width: 150px;
+    padding-bottom:12px;
+    display: block;
+}
+
+ul.siderLeft li:hover {
+    background-color: #000000;
+}
+
+ul.siderLeft li i {
+    background-size: 100% 100%;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: bottom;
+    margin-right: 2px;
+    margin-left: 13px;
+    margin-bottom: 1px;
+}
+
+i.transaction {
+    background: url(../img/transaction.png);
+}
+
+i.heartBeat {
+    background: url(../img/heart.png);
+}
+
+.bottom_left h2 {
+    font-weight: normal;
+    font-size: 15px;
+    cursor: pointer;
+    line-height: 20px;
+    margin-top: 10px;
+    color: #fff;
+    display: inline-block;
+}
