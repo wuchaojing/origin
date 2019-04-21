@@ -11,19 +11,6 @@ import java.util.Set;
 @Data
 public class JvmInfo {
 
-    @JsonIgnore
-    private long lastGcCount;
-    @JsonIgnore
-    private long lastGcTime;
-    @JsonIgnore
-    private long lastFullGcTime;
-    @JsonIgnore
-    private long lastFullGcCount;
-    @JsonIgnore
-    private long lastYoungGcTime;
-    @JsonIgnore
-    private long lastYoungGcCount;
-
     private long gcCount;
     private long gcTime;
     private long oldGcCount;
@@ -71,20 +58,5 @@ public class JvmInfo {
             }
         }
 
-        gcCount = gcCount - lastGcCount;
-        gcTime = gcTime - lastGcTime;
-        oldGcCount = oldGcCount - lastFullGcCount;
-
-        oldGcTime = oldGcTime - lastFullGcTime;
-        youngGcCount = youngGcCount - lastYoungGcCount;
-        youngGcTime = youngGcTime - lastYoungGcTime;
-
-        lastGcCount = gcCount;
-        lastGcTime = gcTime;
-        lastYoungGcCount = youngGcCount;
-        lastYoungGcTime = youngGcTime;
-        lastFullGcCount = oldGcCount;
-        lastFullGcTime = oldGcTime;
     }
-
 }

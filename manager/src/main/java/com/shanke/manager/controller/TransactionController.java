@@ -18,14 +18,18 @@ import java.util.List;
 public class TransactionController {
 
     @Resource
+    private HeartBeatController heartBeatController;
+
+    @Resource
     private TransactionService transactionService;
 
     @GetMapping(value = {"/index", "/transaction"})
     public String enterIndex(Model model) {
-        String domain = "com.test";
-        Long time = System.currentTimeMillis() - System.currentTimeMillis() % 3600000;
+        String domain = "monitor";
+        Long startTime = System.currentTimeMillis() - System.currentTimeMillis() % 3600000;
+        Long endTime = startTime + 3600000;
         List<String> machines = transactionService.getMachines(domain);
-        List<TransactionCount> transactionCounts = transactionService.enterIndex(domain, time);
+        List<TransactionCount> transactionCounts = transactionService.enterIndex(domain, startTime, endTime);
         model.addAttribute("machines", machines);
         model.addAttribute("transactionCounts", transactionCounts);
         return "transaction";
@@ -34,30 +38,40 @@ public class TransactionController {
 
     @GetMapping("/get_type")
     public String getType(Model model, Params params) {
-        String domain = params.getDomain();
 
-        Timestamp ts = Timestamp.valueOf(params.getStartTime() + ":00");
-        Long startTime = ts.getTime();
+        if (params.getPage().equals("transaction")) {
+            String domain = params.getDomain();
 
-        ts = Timestamp.valueOf(params.getEndTime() + ":00");
-        Long endTime = ts.getTime();
+            Timestamp ts = Timestamp.valueOf(params.getStartTime() + ":00");
+            Long startTime = ts.getTime();
 
-        String machine = params.getMachine() == null ? "all" : params.getMachine();
+            ts = Timestamp.valueOf(params.getEndTime() + ":00");
+            Long endTime = ts.getTime();
 
-        List<String> machines = transactionService.getMachines(domain);
+            String machine = params.getMachine() == null ? "all" : params.getMachine();
 
-        List<TransactionCount> transactionCounts = transactionService.getType(domain, machine, startTime, endTime);
+            List<String> machines = transactionService.getMachines(domain);
 
-        params.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTime));
+            List<TransactionCount> transactionCounts = transactionService.getType(domain, machine, startTime, endTime);
 
-        model.addAttribute("machines", machines);
-        model.addAttribute("transactionCounts", transactionCounts);
-        return "transaction";
+            params.setEndTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTime));
+
+            model.addAttribute("machines", machines);
+            model.addAttribute("transactionCounts", transactionCounts);
+
+            return "transaction";
+        } else if (params.getPage().equals("heartBeat")) {
+            return heartBeatController.heart(model, params);
+        }
+        return type(model, params);
+
     }
 
     @GetMapping("/show")
     @ResponseBody
     public ResultInfo show(Params params) {
+
+        System.out.println(params);
         String domain = params.getDomain();
 
         Timestamp ts = Timestamp.valueOf(params.getStartTime() + ":00");
@@ -70,15 +84,37 @@ public class TransactionController {
 
         String type = params.getType();
 
-        List<TransactionCount> transactionCounts = transactionService.getDetailWithType(domain, machine, type, startTime, endTime);
+        String name = params.getName();
+        List<TransactionCount> transactionCounts;
+        if (null == name) {
+            transactionCounts = transactionService.getDetailWithType(domain, machine, type, startTime, endTime);
+        } else {
+            transactionCounts = transactionService.getDetailWithTypeName(domain, machine, type, name, startTime, endTime);
+        }
 
         return new ResultInfo(0, transactionCounts);
     }
 
     @GetMapping(value = {"/type"})
-    public String type(Model model) {
-        String name = "jiangbei";
-        model.addAttribute("name", name);
+    public String type(Model model, Params params) {
+        String domain = params.getDomain();
+
+        List<String> machines = transactionService.getMachines(domain);
+        model.addAttribute("machines", machines);
+
+        Timestamp ts = Timestamp.valueOf(params.getStartTime() + ":00");
+        Long startTime = ts.getTime();
+
+        ts = Timestamp.valueOf(params.getEndTime() + ":00");
+        Long endTime = ts.getTime();
+
+        String machine = params.getMachine() == null ? "all" : params.getMachine();
+        String type = params.getType();
+
+        List<TransactionCount> transactionCounts = transactionService.getNames(domain, machine, type, startTime, endTime);
+        model.addAttribute("transactionCounts", transactionCounts);
+        model.addAttribute("type", type);
+
         return "type";
     }
 

@@ -10,11 +10,21 @@ public class App {
     private static boolean init;
     private static App app = new App();
 
-    public static void newTransaction(String type, String name) {
-        checkAndInitialize();
+    public static void main(String[] args) {
+        newTransaction("a", "b");
+    }
 
-        Transaction transaction = new Transaction(type, name);
-        transactionManager.addTransaction(transaction);
+    public static void newTransaction(String type, String name) {
+        try {
+            checkAndInitialize();
+
+            Transaction transaction = new Transaction(type, name);
+            transactionManager = TransactionManager.getInstance();
+            transactionManager.addTransaction(transaction);
+        } catch (Exception e) {
+            System.out.println("监控系统异常，正在恢复...");
+        }
+
     }
 
     public static void endTransaction() {
@@ -25,17 +35,12 @@ public class App {
         if (!init) {
             synchronized (app) {
                 if (!init) {
-                    transactionManager = TransactionManager.getInstance();
 
                     new HeartBeatManager();
 
                     init = true;
                 }
             }
-
         }
-
-
     }
-
 }

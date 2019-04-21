@@ -7,31 +7,22 @@ import com.shanke.message.HeartBeat;
 import com.shanke.message.Message;
 import com.shanke.sender.MessageSender;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Properties;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 
 public class HeartBeatManager {
 
     private static BlockingDeque<Message> heartBeatQueue = new LinkedBlockingDeque<>();
 
-    private static ExecutorService executorService = Executors.newFixedThreadPool(2);
-
     public HeartBeatManager() {
 
-//        Thread senderThread = new Thread(new Sender());
-//        senderThread.setDaemon(true);
-//        executorService.submit(senderThread);
         new Thread(new Sender()).start();
 
         new Thread(new Collector()).start();
-//
-//        Thread collectorThread = new Thread(new Collector());
-//        senderThread.setDaemon(true);
-//        executorService.submit(collectorThread);
     }
 
     class Sender implements Runnable {
@@ -41,14 +32,12 @@ public class HeartBeatManager {
         @Override
         public void run() {
             while (true) {
+                Message message = null;
                 try {
-                    Thread.sleep(10000);
+                    message = heartBeatQueue.take();
                 } catch (InterruptedException e) {
-
-
+                    e.printStackTrace();
                 }
-                System.out.println("------------");
-                Message message = heartBeatQueue.poll();
                 if (message != null) {
                     messageSender.send(message);
                 }
@@ -58,9 +47,20 @@ public class HeartBeatManager {
 
     class Collector implements Runnable {
 
+        private Properties properties;
+
+        {
+            properties = new Properties();
+            try {
+                properties.load(this.getClass().getResourceAsStream("/app.properties"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
         private void waitMinute() {
             try {
-                Thread.sleep(10000);
+                Thread.sleep(60000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -69,8 +69,7 @@ public class HeartBeatManager {
         @Override
         public void run() {
             while (true) {
-                System.out.println("==========");
-                String domain = "com.test";
+                String domain = properties.getProperty("app.name");
                 String ipAddress = null;
                 String hostname = null;
                 InetAddress addr;

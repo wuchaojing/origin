@@ -4,12 +4,14 @@ import com.shanke.message.Message;
 import com.shanke.message.Transaction;
 import com.shanke.sender.MessageSender;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Properties;
 import java.util.concurrent.BlockingDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class TransactionManager{
+public class TransactionManager {
 
     private BlockingDeque<Message> transactionQueue = new LinkedBlockingDeque<>();
 
@@ -22,7 +24,13 @@ public class TransactionManager{
     private ThreadLocal<Context> contexts = new ThreadLocal<>();
 
     private TransactionManager() {
-        domain = "com.test";
+        Properties properties = new Properties();
+        try {
+            properties.load(this.getClass().getResourceAsStream("/app.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        domain = properties.getProperty("app.name");
         InetAddress addr;
         try {
             addr = InetAddress.getLocalHost();

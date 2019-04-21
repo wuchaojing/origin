@@ -9,14 +9,124 @@
     <script src="../static/js/jquery.min.js"></script>
     <script src="../static/js/transaction.js"></script>
     <script src="../static/js/common.js"></script>
+    <script src="../static/js/echarts.js"></script>
+    <script th:inline="javascript" src="../static/js/heartBeat.js"></script>
 </head>
 <body>
 <div th:replace="header :: html"></div>
+<input id="page" type="hidden" value="heartBeat">
 <div class="bottom">
     <div th:replace="left :: html"></div>
     <div id="ins" class="bottom_right">
         <div th:replace="right :: html"></div>
+        <div style="height:650px;overflow:auto;">
+            <p style="margin-left: 10px;margin-top: 10px;">SystemInfo</p>
+            <table height="200px" width="100%" cellpadding="0" cellspacing="0"
+                   style="table-layout:fixed;word-wrap:break-word;font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+                <tbody>
+                <tr style="text-align:center;">
+                    <td align="center" valign="middle">
+                        <div id="load_average" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="free_memory" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="free_swap" style="width: 400px;height: 200px"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p style="margin-left: 10px;margin-top: 10px;">JvmInfo</p>
+            <table height="200px" width="100%" cellpadding="0" cellspacing="0"
+                   style="table-layout:fixed;word-wrap:break-word;font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+                <tbody>
+                <tr style="text-align:center;">
+                    <td align="center" valign="middle">
+                        <div id="gc_count" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="gc_time" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="old_gc_count" style="width: 400px;height: 200px"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table height="200px" width="100%" cellpadding="0" cellspacing="0"
+                   style="table-layout:fixed;word-wrap:break-word;font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+                <tbody>
+                <tr style="text-align:center;">
+                    <td align="center" valign="middle">
+                        <div id="old_gc_time" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="young_gc_count" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="young_gc_time" style="width: 400px;height: 200px"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p style="margin-left: 10px;margin-top: 10px;">MemoryInfo</p>
+            <table height="200px" width="100%" cellpadding="0" cellspacing="0"
+                   style="table-layout:fixed;word-wrap:break-word;font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+                <tbody>
+                <tr style="text-align:center;">
+                    <td align="center" valign="middle">
+                        <div id="used_memory" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="used_old_gen" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="used_perm_gen" style="width: 400px;height: 200px"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <table height="200px" width="100%" cellpadding="0" cellspacing="0"
+                   style="table-layout:fixed;word-wrap:break-word;font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif">
+                <tbody>
+                <tr style="text-align:center;">
+                    <td align="center" valign="middle">
+                        <div id="used_eden_space" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="used_survivor_space" style="width: 400px;height: 200px"></div>
+                    </td>
+                    <td>
+                        <div id="used_meta_space" style="width: 400px;height: 200px"></div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 </body>
+<script>
+    document.getElementById("machine_all").style.display = "none"
+</script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+    var systemMap = [[${systemMap}]];
+    console.log(systemMap);
+
+    var jvmMap = [[${jvmMap}]];
+    console.log(jvmMap);
+
+    var memoryMap = [[${memoryMap}]];
+    console.log(memoryMap);
+
+    /*]]>*/
+
+    fillEcharts(systemMap, jvmMap, memoryMap);
+
+</script>
+
 </html>

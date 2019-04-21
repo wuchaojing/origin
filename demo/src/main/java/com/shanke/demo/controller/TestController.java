@@ -12,18 +12,40 @@ public class TestController {
     @ResponseBody
     public String hello() throws InterruptedException {
 
-        App.newTransaction("hello", "world");
+        App.newTransaction("URL", "world");
         Thread.sleep(1000);
         App.endTransaction();
 
         return "hello";
     }
 
-    @RequestMapping("/world")
+    @RequestMapping("/sql")
     @ResponseBody
     public String world() throws InterruptedException {
 
-        App.newTransaction("chao", "jing");
+        App.newTransaction("SQL", "jing");
+        Thread.sleep(1000);
+        App.endTransaction();
+
+        return "hello";
+    }
+
+    @RequestMapping("/a")
+    @ResponseBody
+    public String aaa() throws InterruptedException {
+
+        App.newTransaction("AAA", "jing");
+        Thread.sleep(1000);
+        App.endTransaction();
+
+        return "hello";
+    }
+
+    @RequestMapping("/thread")
+    @ResponseBody
+    public String thread() throws InterruptedException {
+
+        App.newTransaction("Thread", "jing");
         Thread.sleep(1000);
         App.endTransaction();
 

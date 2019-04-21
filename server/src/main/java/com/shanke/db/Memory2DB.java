@@ -22,12 +22,10 @@ public class Memory2DB {
     private Memory2DB() {
     }
 
-    public void storeTransaction(Long time, Transaction transaction) {
-//        for (Transaction transaction : transactions) {
+    public void storeTransaction(Transaction transaction) {
         SqlSession session = factory.openSession();
         TransactionMapper mapper = session.getMapper(TransactionMapper.class);
-        mapper.insert(time, transaction);
-//        }
+        mapper.insert(transaction);
     }
 
     public static Memory2DB getInstance() {

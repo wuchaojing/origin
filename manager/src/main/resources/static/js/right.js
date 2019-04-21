@@ -5,25 +5,27 @@ function selectMachine(size, id) {
     var domain = $("#search").val();
     var startTime = $("#startTime").val();
     var endTime = $("#endTime").val();
-    var machine = document.getElementById(id).innerText;
+    var machine = document.getElementById("machine" + id).innerText;
+    var page = $("#page").val();
 
     window.sessionStorage.setItem("machineSize", size);
-    window.sessionStorage.setItem("machineId", "machine" + id);
+    window.sessionStorage.setItem("machineId", id);
 
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + startTime + '&endTime=' + endTime + '&machine=' + machine;
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + startTime + '&endTime=' + endTime + '&machine=' + machine + "&page=" + page;
     window.event.returnValue = false;
 }
 
 function selectMachineWithColor(size, id) {
     var intSize = parseInt(size);
+    var intId = parseInt(id);
     document.getElementById("machine_all").style.backgroundColor = "#fff";
 
     for (var i = 1; i <= intSize; i++) {
-        if (i === id) {
-            document.getElementById("machine" + id).style.backgroundColor = "#4876FF";
+        if (i === intId) {
+            document.getElementById("machine" + i).style.backgroundColor = "#4876FF";
             continue;
         }
-        document.getElementById("machine" + id).style.backgroundColor = "#fff";
+        document.getElementById("machine" + i).style.backgroundColor = "#fff";
     }
 }
 
@@ -48,8 +50,9 @@ function getType() {
     var domain = $("#search").val();
     var startTime = $("#startTime").val();
     var endTime = $("#endTime").val();
+    var page = $("#page").val();
 
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + startTime + '&endTime=' + endTime;
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + startTime + '&endTime=' + endTime + '&page=' + page;
     window.event.returnValue = false;
 
 }
@@ -70,7 +73,9 @@ function subtractDay() {
     var newEndTime = timeStamp2Str(timestamp);
     $("#endTime").val(newEndTime);
 
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime;
+    var page = $("#page").val();
+
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime + '&page=' + page;
     window.event.returnValue = false;
 
 }
@@ -96,7 +101,9 @@ function addDay() {
     var newEndTime = timeStamp2Str(timestamp);
     $("#endTime").val(newEndTime);
 
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime;
+    var page = $("#page").val();
+
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime + '&page=' + page;
     window.event.returnValue = false;
 
 }
@@ -117,7 +124,9 @@ function subtractHour() {
     var newEndTime = timeStamp2Str(timestamp);
     $("#endTime").val(newEndTime);
 
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime;
+    var page = $("#page").val();
+
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime + '&page=' + page;
     window.event.returnValue = false;
 
 }
@@ -144,7 +153,9 @@ function addHour() {
     var newEndTime = timeStamp2Str(timestamp);
     $("#endTime").val(newEndTime);
 
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime;
+    var page = $("#page").val();
+
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + newStartTime + '&endTime=' + newEndTime + '&page=' + page;
     window.event.returnValue = false;
 
 }
@@ -157,7 +168,9 @@ function now() {
     var myDate = new Date();
     $("#startTime").val(myDate.getFullYear() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate() + " " + myDate.getHours() + ":00");
     $("#endTime").val(myDate.getFullYear() + "-" + (myDate.getMonth() + 1) + "-" + myDate.getDate() + " " + (myDate.getHours() + 1) + ":00");
-    window.location.href = '/get_type?domain=' + domain + '&startTime=' + $("#startTime").val() + '&endTime=' + $("#endTime").val();
+    var page = $("#page").val();
+
+    window.location.href = '/get_type?domain=' + domain + '&startTime=' + startTime + '&endTime=' + endTime + '&page=' + page;
     window.event.returnValue = false;
 }
 

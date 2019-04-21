@@ -21,34 +21,7 @@ public class TransactionHandle {
     }
 
     public void handle(Transaction transaction) {
-        System.out.println("transaction = " + transaction);
-        Long currentHour = System.currentTimeMillis() - System.currentTimeMillis() % 3600000;
+        memory2DB.storeTransaction(transaction);
 
-//        // todo thread
-//        if (map.size() != 0 && !map.containsKey(currentHour)) {
-//
-//            Long time;
-//
-//            for (Map.Entry<Long, List<Transaction>> entry : map.entrySet()) {
-//                time = entry.getKey();
-//                memory2DB.storeTransaction(time, entry.getValue());
-//            }
-//
-//            map.clear();
-//
-//            List<Transaction> transactions = new ArrayList<>();
-//            transactions.add(transaction);
-//
-//            map.put(currentHour, transactions);
-//            return;
-//        }
-        memory2DB.storeTransaction(currentHour,transaction);
-
-//        List<Transaction> transactions = map.get(currentHour);
-//        if (transactions == null) {
-//            transactions = new ArrayList<>();
-//        }
-//        transactions.add(transaction);
-//        map.put(currentHour, transactions);
     }
 }

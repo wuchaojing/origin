@@ -18,18 +18,13 @@ public class ReceiverHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println("msg = " + msg.toString());
-
         Message message = JsonUtil.json2Object(msg.toString(), Message.class);
-        System.out.println("message = " + message);
         if (message.getMessageType().equals("transaction")) {
             System.out.println("message.getTransaction = " + message.getTransaction());
             transactionHandle.handle(message.getTransaction());
         } else if (message.getMessageType().equals("heartBeat")) {
             System.out.println("message.getHeartBeat = " + message.getHeartBeat());
             heartBeatHandle.handle(message.getHeartBeat());
-        } else {
-
         }
 
     }

@@ -9,7 +9,9 @@ public class Params {
     private String domain;
     private String machine;
     private String endTime;
+    private String page;
 
     private String type;
+    private String name;
 
 }
